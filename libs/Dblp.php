@@ -20,6 +20,8 @@ class Dblp {
 
  private function toArray($obj){
     $results=array();
+   if(!isset($obj->result->hits->hit))
+     return $results;
     $hits=$obj->result->hits->hit;
     $i=0;
     foreach($hits as $hit){

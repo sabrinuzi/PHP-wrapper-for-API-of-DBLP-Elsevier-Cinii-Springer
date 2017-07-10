@@ -68,10 +68,10 @@ private  $loopThrough = 1;
 				// Grab the total number of results returned from the query
 				$this->totalResults = $json['search-results']['opensearch:totalResults'];
 				if($this->totalResults == 0) {
-					print "\tNo publications recorded with this ID.\n";
+					//print "\tNo publications recorded with this ID.\n";
 					// If the query returns 0 results, then quit looping through this publication eID
 					$this->loopThrough  = 0;
-					continue;
+					//continue;
 				} else {
 					
 				}
