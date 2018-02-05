@@ -1,15 +1,19 @@
 <?php
+namespace sabri\dblp;
+
 
 class Dblp {
 
  private $searchTerm;
 
- public function setSearchTerm($searchTerm){
-    $this->searchTerm=$searchTerm;
- }
+
  function __construct($searchTerm){
     $this->searchTerm=$searchTerm;
  }
+
+ public function setSearchTerm($searchTerm){
+  $this->searchTerm=$searchTerm;
+}
 
   public function result(){
     $request = 'http://dblp.uni-trier.de/search/publ/api?q='. urlencode( $this->searchTerm).'&h=1000&c=0&rd=1a&format=json';
