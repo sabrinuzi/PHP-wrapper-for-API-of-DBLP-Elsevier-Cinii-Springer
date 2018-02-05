@@ -1,0 +1,9 @@
+{
+	"name": "sabri/dblp",
+	"description": "PHP wrapper for API of DBLP, Elsevier, Cinii, Springer ",
+	"autoload": {
+		"psr-4": {
+			"sabri\\dblp\\": ""
+		}
+	}
+}
