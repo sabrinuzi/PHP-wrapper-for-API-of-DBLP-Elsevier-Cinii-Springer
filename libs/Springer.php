@@ -11,6 +11,7 @@ class Springer {
     private $api_key; 
     private $searchTerm;
     private $type;
+    private $baseUrl = 'http://api.springer.com';
 
 
     function __construct($searchTerm, $type='all'){
@@ -18,34 +19,34 @@ class Springer {
         $this->setType($type);
     }
 
-    public function setSearchTerm($searchTerm){
+    public function setSearchTerm($searchTerm) {
         $this->searchTerm = $searchTerm;
     }
 
-    public function setType($type){
+    public function setType($type) {
         $this->type = $type;
     }
 
-    public function setApiKey($key){
+    public function setApiKey($key) {
         $this->api_key = $key;
     }
 
     public function result(){
 
-        if($this->searchTerm == null){
+        if ($this->searchTerm == null) {
             throw new Exception('Search term can not be empty.');
         }
 
-        if($this->api_key == null){
+        if ($this->api_key == null) {
             throw new Exception('API key can not be empty.');
         }
 
-        if( $this->type=='title'){
-            $request = 'http://api.springer.com/metadata/json?&api_key='.$this->api_key.'&q='.$this->type.':' . urlencode( $this->searchTerm)."&s=1&p=100";
-        } else if( $this->type=='author') {
-            $request = 'http://api.springer.com/metadata/json?&api_key='.$this->api_key.'&q='.$this->type.':' . urlencode( $this->searchTerm )."&s=1&p=100";
+        if ($this->type=='title') {
+            $request = $baseUrl . '/metadata/json?&api_key='.$this->api_key.'&q='.$this->type.':' . urlencode( $this->searchTerm)."&s=1&p=100";
+        } else if ($this->type=='author') {
+            $request =$baseUrl . '/metadata/json?&api_key='.$this->api_key.'&q='.$this->type.':' . urlencode( $this->searchTerm )."&s=1&p=100";
         } else {
-            $request = 'http://api.springer.com/metadata/json?&api_key='.$this->api_key.'&q=' . urlencode( $this->searchTerm )."&s=1&p=100";
+            $request = $baseUrl . '/metadata/json?&api_key='.$this->api_key.'&q=' . urlencode( $this->searchTerm )."&s=1&p=100";
         }
 
         $response = file_get_contents($request);
@@ -54,26 +55,25 @@ class Springer {
         return $this->toArray($jsonobj_sp);
     }
 
-    private function toArray($obj){
+    private function toArray($obj) {
 
         $results_springer = [];
 
-        for($i=0;$i<sizeof($obj->records);$i++)
-        {
-            $authors="";	
-            foreach( $obj->records[$i]->creators as $creator){
-                $authors.=$creator->creator. " / ";
+        for($i=0; $i < sizeof($obj->records); $i++) {
+            $authors = [];	
+            foreach($obj->records[$i]->creators as $creator) {
+                $authors[] = $creator->creator;
             }
-            $url=$obj->records[$i]->url;
+            $url = $obj->records[$i]->url;
 
-            $item=[ "url"=>$url[0]->value,
-                    "title"=>$obj->records[$i]->title,
-                    "authors"=>$authors,
-                    "abstract"=>$obj->records[$i]->abstract,
-                    "publisher"=>"Springer"
+            $results_springer[] = [ 
+                    "url" = >$url[0]->value,
+                    "title" => $obj->records[$i]->title,
+                    "authors" => $authors,
+                    "abstract" => $obj->records[$i]->abstract,
+                    "publisher" => "Springer"
                 ];
 
-            array_push($results_springer,$item);
         }
 
         return $results_springer;
