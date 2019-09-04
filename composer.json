@@ -1,9 +1,12 @@
 {
-	"name": "sabri/dblp",
+	"name": "snuzi/dblp",
 	"description": "PHP wrapper for API of DBLP, Elsevier, Cinii, Springer ",
 	"autoload": {
 		"psr-4": {
-			"sabri\\dblp\\": "libs"
+			"snuzi\\dblp\\": "src"
 		}
-	}
+    },
+    "require": {
+        "guzzlehttp/guzzle": "~6.0"
+    }
 }
