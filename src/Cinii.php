@@ -8,10 +8,16 @@ class Cinii extends ClientAbstract {
     const TYPE_TITLE = 'title';
     const TYPE_ALL = 'all';
 
+    private $request;
     private $searchTerm;
 
     private $baseUrl = 'http://ci.nii.ac.jp/opensearch/search';
     
+    public function __construct()
+    {
+        $this->request = new Request();
+    }
+
     private $queryParams = [
         'count' => 100,
         'start' => 1,
@@ -56,8 +62,7 @@ class Cinii extends ClientAbstract {
             throw new Exception('Search term can not be empty.');
         }
 
-        $request = new Request();
-        $response = $request->getResult($this->baseUrl, $this->queryParams);
+        $response = $this->request->getResult($this->baseUrl, $this->queryParams);
 
         return $this->toArray($response);
     }

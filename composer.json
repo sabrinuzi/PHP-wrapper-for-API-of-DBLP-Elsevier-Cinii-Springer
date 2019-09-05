@@ -7,6 +7,15 @@
 		}
     },
     "require": {
-        "guzzlehttp/guzzle": "~6.0"
-    }
+		"guzzlehttp/guzzle": "~6.0",
+		"phpunit/phpunit": "~6.0"
+	},
+	"scripts": {
+        "test": [
+            "phpunit --configuration phpunit.xml"
+        ]
+    },
+	"require-dev": {
+		"mockery/mockery": "^1.2"
+	}
 }
