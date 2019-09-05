@@ -15,11 +15,11 @@ jobs:
     script:
     - composer run-script test
   - stage: Publish
-    script:
-      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-      - DOCKER_PREFIX="snuzi/phpunit-test"
+    #script:
+      # - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      # - DOCKER_PREFIX="snuzi/php-wrapper-dblp"
       # Use $TRAVIS_PULL_REQUEST_BRANCH for Pull Request builds and fall back to $TRAVIS_BRANCH for Branch Push builds.
-      - DOCKER_TAG=`echo "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" | sed -e 's/[^A-Za-z0-9-]\+/_/g'`
-      - DOCKER_IMAGE="findologic/account-backend:$DOCKER_TAG"
+      # - DOCKER_TAG=`echo "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH}" | sed -e 's/[^A-Za-z0-9-]\+/_/g'`
+      # - DOCKER_IMAGE="findologic/account-backend:$DOCKER_TAG"
       #- docker build -t $DOCKER_IMAGE -f Dockerfile .
-      - docker push $DOCKER_IMAGE
+      # - docker push $DOCKER_IMAGE
