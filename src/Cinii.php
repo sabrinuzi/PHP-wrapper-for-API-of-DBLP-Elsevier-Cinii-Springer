@@ -72,11 +72,11 @@ class Cinii extends ClientAbstract {
         return 'Cinii';
     }
 
-    protected function toArray($obj)
+    protected function toArray($list)
     {
         $publications = [];
 
-        foreach( $obj as $itemObject) {
+        foreach( $list as $itemObject) {
             $publication = new Publication();
             $authors = [];
             if(is_array($itemObject)) {
